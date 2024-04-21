@@ -1,17 +1,20 @@
 import { useState } from 'react';
-import appLogo from './assets/LevelUp_Together.png';  // Ensure the path is correct
-import './App.css';  // Ensure the path is correct
+import appLogo from './assets/LevelUp_Together.png'; // Ensure the path is correct
+import './App.css'; // Ensure the path is correct
 
 function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
-  const [lastSubmitted, setLastSubmitted] = useState(null);  // Ensure this is correctly initialized
+  const [reps, setReps] = useState(''); // Initialized reps state
+  const [sets, setSets] = useState('');
+  const [dateUser, setDate] = useState('');
+  const [lastSubmitted, setLastSubmitted] = useState(null); // Ensure this is correctly initialized
 
   const workouts = [
     { id: 'squats', name: 'Squats' },
     { id: 'deadlift', name: 'Dead Lift' },
-    { id: 'curl', name: 'Curls'},
+    { id: 'curl', name: 'Curls' },
   ];
 
   const handleChange = (event) => {
@@ -20,7 +23,13 @@ function App() {
       setFirstName(value);
     } else if (name === 'userLName') {
       setLastName(value);
-    } 
+    } else if (name === 'reps') {
+      setReps(Math.max(0, value)); // Handle change for reps
+    } else if (name === 'sets') {
+      setSets(Math.max(0, value));
+    } else if (name === 'date') {
+      setDate(value);
+    }
   };
 
   const handleWorkoutChange = (event) => {
@@ -30,13 +39,16 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const submissionData = { firstName, lastName, selectedWorkouts };
-    setLastSubmitted(submissionData);  // Store last submission data
-    console.log('Submitted:', submissionData);  // Ensure console logging is correct
+    const submissionData = { firstName, lastName, selectedWorkouts, reps, sets, date }; // Include reps in submission data
+    setLastSubmitted(submissionData); // Store last submission data
+    console.log('Submitted:', submissionData); // Ensure console logging is correct
     // Reset form fields
     setFirstName('');
     setLastName('');
     setSelectedWorkouts([]);
+    setReps(''); // Reset reps field
+    setSets('');
+    setDate('');
   };
 
   return (
@@ -68,7 +80,25 @@ function App() {
           </select>
         </label>
         <br />
+        <label>
+          Rep(s):
+          <br />
+          <input name="reps" type="number" value={reps} onChange={handleChange} />
+        </label>
         <br />
+        <label>
+          Set(s):
+          <br />
+          <input name="sets" type="number" value={sets} onChange={handleChange} />
+        </label>
+        <br/>
+        <label>
+          Date:
+          <br />
+          <input name="date" type="text" value={dateUser} onChange={handleChange} />
+        </label>
+        <br />
+        <br/>
         <button type="submit">
           Submit
         </button>
@@ -79,11 +109,9 @@ function App() {
           <p>First Name: {lastSubmitted.firstName}</p>
           <p>Last Name: {lastSubmitted.lastName}</p>
           <p>Workouts: {lastSubmitted.selectedWorkouts.join(', ')}</p>
+          <p>Reps: {lastSubmitted.reps}</p> {/* Display the reps in the last submission */}
         </div>
       )}
-      <p>
-        Edit <code>src/App.jsx</code> and save to test HMR
-      </p>
     </div>
   );
 }

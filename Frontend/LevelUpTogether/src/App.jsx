@@ -39,7 +39,12 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const submissionData = { firstName, lastName, selectedWorkouts, reps, sets, date }; // Include reps in submission data
+    const submissionData = {};
+    for (const element of event.target.elements) {
+      if (element.name) {
+        submissionData[element.name] = element.value;
+      }
+    }
     setLastSubmitted(submissionData); // Store last submission data
     console.log('Submitted:', submissionData); // Ensure console logging is correct
     // Reset form fields
@@ -108,7 +113,7 @@ function App() {
           <h3>Last Submission:</h3>
           <p>First Name: {lastSubmitted.firstName}</p>
           <p>Last Name: {lastSubmitted.lastName}</p>
-          <p>Workouts: {lastSubmitted.selectedWorkouts.join(', ')}</p>
+          <p>Workouts: {lastSubmitted.selectedWorkouts ? lastSubmitted.selectedWorkouts.join(', ') : ""}</p>
           <p>Reps: {lastSubmitted.reps}</p> {/* Display the reps in the last submission */}
         </div>
       )}

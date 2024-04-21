@@ -1,0 +1,6 @@
+.scrolling {
+ /* Fixed height */
+    overflow-y: auto; /* Enables vertical scrolling */
+    border: 1px solid #ccc; /* Just for visibility */
+    padding: 10px;
+  }

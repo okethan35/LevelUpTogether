@@ -1,3 +1,10 @@
+html, body {
+  height: 100%; /* Makes the html and body to full viewport height */
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+  overflow: hidden; /* Prevents scrolling on the body itself */
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,18 +12,26 @@
   text-align: center;
 }
 
+.scrolling {
+  height: 100vh; /* Fixed height */
+  overflow-y: auto; /* Enables vertical scrolling */
+  box-sizing: border-box;
+  padding: 20px; /* Optional: for padding inside the container */
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
+  padding-bottom: 60;
   will-change: filter;
   transition: filter 300ms;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.title{
+  padding-top: 20%;
+  color: cyan;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+
 
 @keyframes logo-spin {
   from {
